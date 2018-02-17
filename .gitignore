@@ -3,3 +3,4 @@ blackjack
 blackjack.o
 highscores.dat
 .vscode/
+src/resHeader/fontHeader.hpp

@@ -10,6 +10,7 @@ This is a Black Jack implementation using SFML.
 
 Since the used font (see `fontcredits`) is not mine and its redistribution is not permitted you have to download it yourself by running the script `fetchFont.sh` from the main directory.  
 After that just run `make` to build and run.  
+There is also the `buildCompact.sh` script that generates headers in `src/resHeader` and builds a standalone executable.
 
 ### Description
 

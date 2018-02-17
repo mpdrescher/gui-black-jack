@@ -1,4 +1,6 @@
 /*
+A COPY OF main.cpp FOR BUILDING WITH EMBEDDED FONT AND TEXTURES
+
 PROGRAM LAYOUT:
 ==============
 
@@ -26,6 +28,13 @@ PROGRAM LAYOUT:
 #include "cardManager.cpp"
 #include "endscreen.cpp"
 
+// include embedded resources
+#include "resHeader/fontHeader.hpp"
+#include "resHeader/resBackground.hpp"
+#include "resHeader/resBetdialog.hpp"
+#include "resHeader/resCards.hpp"
+#include "resHeader/resOverlay.hpp"
+
 using namespace sf;
 
 const int TEXT_BACKGROUND = 0;
@@ -33,26 +42,24 @@ const int TEXT_CARDS = 1;
 const int TEXT_BETDIALOG = 2;
 const int TEXT_OVERLAY = 3;
 
-// might seem overkill, but this makes embedding the resources in the alternative version easier
+// might seem overkill, but this makes embedding the resources in the compact version easier
 void loadTexture(int textureConst, Texture *text) {
-	string path;
 	if (textureConst == TEXT_BACKGROUND) {
-		path = "assets/background.png";
+		text -> loadFromMemory(&assets_background_png, assets_background_png_len);
 	}
 	else if (textureConst == TEXT_CARDS) {
-		path = "assets/cards.png";
+		text -> loadFromMemory(&assets_cards_png, assets_cards_png_len);
 	}
 	else if (textureConst == TEXT_BETDIALOG) {
-		path = "assets/betdialog.png";
+		text -> loadFromMemory(&assets_betdialog_png, assets_betdialog_png_len);
 	}
 	else if (textureConst == TEXT_OVERLAY) {
-		path = "assets/overlay.png";
+		text -> loadFromMemory(&assets_overlay_png, assets_overlay_png_len);
 	}
-	text -> loadFromFile(path);
 }
 
 void loadFont(Font *font) {
-	font -> loadFromFile("assets/Beholder.ttf");
+	font -> loadFromMemory(&assets_Beholder_ttf, assets_Beholder_ttf_len);
 }
 
 int main()
@@ -67,9 +74,9 @@ int main()
 	Texture cardtext;
 	loadTexture(TEXT_CARDS, &cardtext);
 	Texture bettingtext;
-	loadTexture(TEXT_BETDIALOG, &bettingtext);
+	loadTexture(TEXT_BETDIALOG, &bettingtext);	
 	Texture uitext;
-	loadTexture(TEXT_OVERLAY, &uitext);
+	loadTexture(TEXT_OVERLAY, &uitext);	
 	Sprite background;
 	background.setTexture(bgtext);
 	Sprite topbar;
