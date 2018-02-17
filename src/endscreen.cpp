@@ -116,4 +116,14 @@ void Endscreen::draw(RenderWindow *window, Font *font, int playerMoney) {
     }
 
     window -> draw(hsText);
+
+    Text creditText;
+    creditText.setFont(*font);
+    creditText.setCharacterSize(20);
+    creditText.setString("game by Matthias Drescher");
+    creditText.setPosition(11, 575);
+    window -> draw(creditText);
+    creditText.setString("font \"beholder\" by Vladimir Nikolic");
+    creditText.setPosition(550, 575);
+    window -> draw(creditText);
 }
