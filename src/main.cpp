@@ -1,3 +1,23 @@
+/*
+PROGRAM LAYOUT:
+==============
+
+- "main.cpp"
+	Set up SFML, load Resources and create game objects
+- "game.cpp"
+	The main class that manages the game state and processes the user input
+- "deck.cpp"
+	A simulated card deck
+- "cardManager.cpp"
+	The class that represents a players hand. In contrast to deck.cpp this file also handles the graphical representation of the cards and their layout on the table.
+- "cardEntity.cpp"
+	A card on the table with its value and position.
+- "endscreen.cpp"
+	The gameover screen and load/save functions.
+- "toast.cpp"
+	A graphical "Toast" (the red popup text) and class that manages them.
+*/
+
 #include <SFML/Graphics.hpp>
 #include "deck.cpp"
 #include "game.cpp"
@@ -103,6 +123,7 @@ int main()
 		window.draw(topbar);
 		window.draw(bottombar);
 
+		// status bar information
 		int curX = 0;
 		betText.setString("Bet $" + to_string(game.getPlayerBet()));
 		window.draw(betText);
@@ -124,6 +145,7 @@ int main()
 		moneyText.setPosition(800 - moneyText.getLocalBounds().width - 10 ,-8);
 		window.draw(moneyText);
 
+		// action buttons
 		string* choices = game.getPlayerChoices();
 		for (int i = 0; i < 4; i++) {
 			buttonText.setString(choices[i]);

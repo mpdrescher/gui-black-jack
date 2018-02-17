@@ -1,3 +1,5 @@
+// For a notice on the card values see cardManager.cpp
+
 #include "cardEntity.hpp"
 
 CardEntity::CardEntity(int val, int x, int y) {

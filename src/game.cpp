@@ -4,25 +4,27 @@
 #include "cardEntity.hpp"
 #include "cardManager.hpp"
 
-const int GS_STARTOFROUND = 0;
-const int GS_STARTOFROUND_BUST = 1;
-const int GS_BETTING = 2;
-const int GS_BETTING_BUST = 3;
+// The game state constants
+const int GS_STARTOFROUND = 0; // the first screen (bet, bet on bust, all-in)
+const int GS_STARTOFROUND_BUST = 1; // the first screen without bet on bust
+const int GS_BETTING = 2; // the betting screen
+const int GS_BETTING_BUST = 3; // the dealer bust betting screen
 const int GS_FIRSTROUND = 4;
-const int GS_PLAYERTURN = 5;
-const int GS_AITURN = 6;
-const int GS_EVAL_SPLIT = 10;
-const int GS_FINISH = 7;
-const int GS_GAMEOVER = 8;
-const int GS_BETTING_SPLIT = 9;
+const int GS_PLAYERTURN = 5; // active the whole time the player can do something (except for the first round)
+const int GS_AITURN = 6; // dealer turn
+const int GS_EVAL_SPLIT = 10; // hack gamestate so that the split hand evaluation is animated
+const int GS_FINISH = 7; // animation state
+const int GS_GAMEOVER = 8; // active while the endscreen is showing
+const int GS_BETTING_SPLIT = 9; // bet on the split hand
 
-const int AS_REPLACE13 = 0;
+const int AS_REPLACE13 = 0; // indicates wether the ai has turned the second dealer card on its first turn (card value 13)
 const int AS_DRAW = 1;
 
 const int AI_SPEED = 75; // in Ticks
 
-const int CLEANUP_TIMEOUT = 60;
+const int CLEANUP_TIMEOUT = 60; // animation speed on gs_finish and gs_eval_split
 
+// value of the buttons on the betting screen
 static int betButtonValue(int row, int col) {
     if (row == 0 && col == 0) {
         return 5;
@@ -48,8 +50,8 @@ class Game {
     Deck deck;
     int playerMoney;
     int bet;
-    int bust;
-    int betSplit;
+    int bust; // 0 indicates inactive
+    int betSplit; // 0 when inactive
     int gameState;
     int aiTimer;
     int aiState;
@@ -59,32 +61,31 @@ class Game {
     ToastManager toastManager;
   public:
     Game(void);
-    void resetAll();
-    void reset();
-    void newRound();
-    void dealerDraw(bool);
+    void resetAll(); // game reset
+    void newRound(); // round reset
+    void dealerDraw(bool); // dealer draw (bool true -> conceal the card)
     void playerDraw();
     void splitDraw();
-    void makeAIMove();
-    void initAI();
+    void makeAIMove(); // the ai function
+    void initAI(); // ai init
     void allIn();
     int getPlayerBetSplit();
     int getPlayerBet();
     int getPlayerMoney();
     int getPlayerBust();
-    bool isBettingActive();
-    void finishGame();
-    void playStartHand();
-    void buttonPressed(int);
+    bool isBettingActive(); // wether the betting dialog should show
+    void finishGame(); // game end (usually after ai turn or player bust)
+    void playStartHand(); // 2 dealer cards, 2 player cards are given
+    void buttonPressed(int); // action button event, button numbers are 0 to 3 from left to right
     void initSplit();
-    void evaluateHand(int, string, int, bool);
+    void evaluateHand(int, string, int, bool); // final hand evaluation
     void setBet(int, int);
-    void update();
-    void draw(RenderWindow*, Text*, Texture*);
+    void update(); // update animations
+    void draw(RenderWindow*, Text*, Texture*); // draw components like toasts and cards
     bool splitActive();
     bool showEndscreen();
     ToastManager* getToastManager();
-    string* getPlayerChoices();
+    string* getPlayerChoices(); // returns the strings displayed on the action buttons
 };
 
 Game::Game(void) {

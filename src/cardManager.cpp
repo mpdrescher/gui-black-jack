@@ -1,3 +1,13 @@
+// NOTICE: card values are from 0 to 13.
+// 0 to 8 corresponds to the number cards 2 to 10
+// 9 -> joker
+// 10 -> queen
+// 11 -> king
+// 12 -> queen
+//
+// the card 13 is not available in the card deck and may only be used by the dealer to indicate a concealed card.
+// the dealers hidden cards real value is only determined at the start of the AI move!
+
 CardManager::CardManager() {
     cleanupDelay = 0;
 }
